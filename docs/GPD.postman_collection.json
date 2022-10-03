@@ -1,0 +1,685 @@
+{
+	"info": {
+		"_postman_id": "f258a0c0-68e2-4022-a2b5-220477d6f47d",
+		"name": "GPD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9888218"
+	},
+	"item": [
+		{
+			"name": "person",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/person",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/person/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"person",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "displayname",
+									"value": "Nombre de admin cammmi",
+									"type": "default"
+								},
+								{
+									"key": "profile",
+									"type": "file",
+									"src": "/Users/fresnohdez/Downloads/IMG_8005.JPG"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{root}}/api/person/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"person",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/api/person/15",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"person",
+								"15"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRequests",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin-token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/person/requests/all",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"person",
+								"requests",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "acceptRequest",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin-token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/person/accept-request/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"person",
+								"accept-request",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "displayname",
+									"value": "GeneralTest",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "general",
+									"type": "default"
+								},
+								{
+									"key": "phone",
+									"value": "54625597",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{root}}/api/auth/signup",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": \"54625597\",\n    \"password\": \"general\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/api/auth/signin",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "roles",
+			"item": [
+				{
+					"name": "create-role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{client-token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"GENERAL\",\n    \"description\": \"Software regular client\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/api/roles",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-role",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/api/roles/5",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/roles/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "extra",
+			"item": [
+				{
+					"name": "root/api",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/api",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "images",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/images/IMG_800531eba97e-adda-4f8e-98e4-6ffd69ca1fc4.JPG",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"images",
+								"IMG_800531eba97e-adda-4f8e-98e4-6ffd69ca1fc4.JPG"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "projects",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/apiappointment/2",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"apiappointment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllByUserId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{client-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/appointment/client/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"appointment",
+								"client",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/appointment/4",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"appointment",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "appointment-request",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/appointment/request/all",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"appointment",
+								"request",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "appointment-accepted",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/appointment/accepted/all",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"appointment",
+								"accepted",
+								"all"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "appointment-unconfirmed",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/appointment/unconfirmed/all",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"appointment",
+								"unconfirmed",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{client-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"projectName\" : \"Mi proyecto\",\n    \"area\" : \"area ejemplo\",\n    \"startDate\": \"2022-01-14 17:27:22.726595\",\n    \"endDate\" : \"2022-01-14 17:27:22.726595\",\n    \"justification\" : \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\",\n    \"recomendations\" : \"Lorem ipsum dolor sit amet, sunt in culpa qui officia deserunt mollit anim id est laborum.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/api/project/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"project",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin-accept",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/appointment/admin/accept/2",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"appointment",
+								"admin",
+								"accept",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client-accept",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/appointment/client/accept/2",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"appointment",
+								"client",
+								"accept",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

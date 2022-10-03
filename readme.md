@@ -15,6 +15,7 @@ This is the main documentation to deploy GPD project to dev or production enviro
 - 1 - Open a system console on the project root.
 - 2 - Run command ```npm start```
 - 3 - Run [SQL](./src/database/_initi.sql) file on query tool of pgAdmin.
+- 4 To test the api endpoints import the Postman [enviroment](./docs/gdp_env.postman_environment.json) and [collection](./docs/GPD.postman_collection.json).
 
 ### Admin Credentials
 ```
