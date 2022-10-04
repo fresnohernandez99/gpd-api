@@ -25,7 +25,7 @@ export class Project extends BaseEntity {
 	@Column({ type: "varchar", nullable: true })
 	logo: string;
 
-	@ManyToOne(() => Person, (person) => person.appointments)
+	@ManyToOne(() => Person, (person) => person.projects)
 	owner: Person;
 
 	@Column({ type: "varchar", nullable: true, default: StateType.WAITING })

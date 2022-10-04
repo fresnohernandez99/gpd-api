@@ -7,6 +7,7 @@ import {
 	ParseIntPipe,
 	Patch,
 	Post,
+	Query,
 	Request,
 	UploadedFile,
 	UseGuards,
@@ -21,179 +22,84 @@ import { GetPersonDto } from "./dto/getPerson.dto";
 import { Person } from "./person.entity";
 import { PersonService } from "./person.service";
 import { storage } from "../auth/auth.controller";
+import { Response } from "src/shared/responder";
+import { UpdatePersonDto } from "./dto/updatePerson.dto";
 
 @Controller("person")
 export class PersonController {
 	constructor(private readonly _personService: PersonService) {}
 
-	@UseGuards(AuthGuard())
-	@Roles(RoleType.ADMIN)
 	@Get()
+	@Roles(RoleType.ADMIN)
+	@UseGuards(AuthGuard())
 	async getPeople() {
 		const people = await this._personService.getAll();
 
-		if (people.length == 0)
-			return {
-				code: 2,
-				message: "",
-				data: {},
-			};
+		if (people.length == 0) return new Response(4, ["Missing data"], {});
 
 		let formatedPeople = people.map((item) => new GetPersonDto(item));
-		return {
-			code: 1,
-			message: "",
-			data: { formatedPeople },
-		};
+
+		return new Response(1, ["People list"], { formatedPeople });
 	}
 
-	@Get(":id")
+	@Get("/waiting")
 	@Roles(RoleType.ADMIN)
 	@UseGuards(AuthGuard(), RoleGuard)
-	async getUser(
-		@Param("id", ParseIntPipe)
-		id: number
-	) {
-		const user = await this._personService.get(id);
+	async getWaiting() {
+		const waiting = await this._personService.getWaiting();
 
-		if (!user)
-			return {
-				code: 2,
-				message: "",
-				data: {},
-			};
+		if (waiting.length == 0) return new Response(4, ["Missing data"], {});
 
-		return {
-			code: 1,
-			message: "",
-			data: { user },
-		};
+		return new Response(1, ["Waiting list"], { waiting });
 	}
 
-	@Get("/requests/all")
+	@Get("/accept-request")
 	@Roles(RoleType.ADMIN)
 	@UseGuards(AuthGuard(), RoleGuard)
-	async getRequests() {
-		const requests = await this._personService.getWaiting();
+	async acceptRequest(@Query() params: { id: number }) {
+		var accept = await this._personService.acceptRequest(params.id);
 
-		if (requests.length == 0)
-			return {
-				code: 2,
-				message: "",
-				data: {},
-			};
-
-		return {
-			code: 1,
-			message: "",
-			data: { requests },
-		};
+		return accept;
 	}
 
-	@Patch(":id")
+	@Post("update-profile")
 	@UseInterceptors(FileInterceptor("profile", storage))
 	@UseGuards(AuthGuard(), RoleGuard)
 	async updatePerson(
 		@UploadedFile() file: Express.Multer.File,
 		@Request() req,
-		@Param("id", ParseIntPipe) id: number,
-		@Body() person: Person
+		@Body() person: UpdatePersonDto
 	) {
-		if (req.user.id != id)
-			return {
-				code: 24,
-				message: "unauthorized",
-				data: {},
-			};
-
 		if (file) person.photo = file.filename;
 
-		var update = await this._personService.update(id, person);
+		var update = await this._personService.update(req.user.id, person);
 
-		if (update == null)
-			return {
-				code: 25,
-				message: "",
-				data: {},
-			};
-
-		return {
-			code: 1,
-			message: "",
-			data: { update },
-		};
+		return update;
 	}
 
-	@Patch("/accept-request/:id")
-	@Roles(RoleType.ADMIN)
+	@Delete("delete-profile")
 	@UseGuards(AuthGuard(), RoleGuard)
-	async acceptRequest(@Param("id", ParseIntPipe) id: number) {
-		var accept = await this._personService.acceptRequest(id);
+	async deletePerson(@Request() req, @Query() params: { id: number }) {
+		if (
+			(req.user.roles.includes(RoleType.ADMIN) && req.user.id != params.id) ||
+			(!req.user.roles.includes(RoleType.ADMIN) && req.user.id == params.id)
+		) {
+			var deleting = await this._personService.delete(params.id);
 
-		if (accept == null)
-			return {
-				code: 25,
-				message: "",
-				data: {},
-			};
-
-		return {
-			code: 1,
-			message: "",
-			data: { accept },
-		};
+			return deleting;
+		} else return new Response(3, ["Bad request"], {});
 	}
 
-	@Delete(":id")
-	@UseGuards(AuthGuard(), RoleGuard)
-	async deletePerson(
-		@Request() req,
-		@Param("id", ParseIntPipe)
-		id: number
-	) {
-		if (req.user.roles[0] != RoleType.ADMIN && req.user.id != id)
-			return {
-				code: 24,
-				message: "",
-				data: {},
-			};
-
-		var deleting = await this._personService.delete(id);
-		
-		if (deleting == null)
-			return {
-				code: 25,
-				message: "",
-				data: {},
-			};
-
-		return {
-			code: 1,
-			message: "",
-			data: { deleting },
-		};
-	}
-
-	@Post("setRole/:personId/:roleId")
+	@Get("set-role")
 	@Roles(RoleType.ADMIN)
 	@UseGuards(AuthGuard(), RoleGuard)
 	async setRoleToPerson(
-		@Param("personId", ParseIntPipe) personId: number,
-		@Param("personId", ParseIntPipe) roleId: number
+		@Query() params: { roleId: number; personId: number }
 	) {
-		var setting = this._personService.setRoleToPerson(personId, roleId);
-
-		if (setting == null)
-			return {
-				code: 25,
-				message: "",
-				data: {},
-			};
-
-		return {
-			code: 1,
-			message: "",
-			data: { setting },
-		};
+		const setting = this._personService.setRoleToPerson(
+			params.personId,
+			params.roleId
+		);
+		return setting;
 	}
 }

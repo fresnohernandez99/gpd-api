@@ -37,8 +37,8 @@ export class Person extends BaseEntity {
 	@JoinTable({ name: "person_roles" })
 	roles: Role[];
 
-	@OneToMany(() => Project, appointment => appointment.owner)
-    appointments: Project[];
+	@OneToMany(() => Project, project => project.owner)
+    projects: Project[];
 
 	@CreateDateColumn({ type: "timestamp", name: "created_at" })
 	createdAt: Date;

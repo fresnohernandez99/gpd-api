@@ -7,6 +7,78 @@
 	},
 	"item": [
 		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "displayname",
+									"value": "Common user",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "general",
+									"type": "default"
+								},
+								{
+									"key": "phone",
+									"value": "54625597",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{root}}/api/auth/signup",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": \"54625596\",\n    \"password\": \"nueva\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/api/auth/signin",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "person",
 			"item": [
 				{
@@ -16,7 +88,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{token}}",
+								"value": "{{client-token}}",
 								"type": "default"
 							}
 						],
@@ -59,13 +131,69 @@
 					"response": []
 				},
 				{
-					"name": "update",
+					"name": "getWaiting",
 					"request": {
-						"method": "PATCH",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{token}}",
+								"value": "{{client-token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/person/waiting",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"person",
+								"waiting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "accept",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{client-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/person/accept-request?id=4",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"person",
+								"accept-request"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{general-client-token}}",
 								"type": "default"
 							}
 						],
@@ -74,25 +202,36 @@
 							"formdata": [
 								{
 									"key": "displayname",
-									"value": "Nombre de admin cammmi",
+									"value": "General user",
 									"type": "default"
 								},
 								{
 									"key": "profile",
 									"type": "file",
-									"src": "/Users/fresnohdez/Downloads/IMG_8005.JPG"
+									"src": "/Users/fresnohdez/Downloads/IMG_8005.JPG",
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": "54625597",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "general",
+									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{root}}/api/person/1",
+							"raw": "{{root}}/api/person/update-profile",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
 								"api",
 								"person",
-								"1"
+								"update-profile"
 							],
 							"query": [
 								{
@@ -112,34 +251,24 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{token}}",
-								"type": "default"
+								"value": "{{second-client-token}}",
+								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{root}}/api/person/15",
+							"raw": "{{root}}/api/person/delete-profile?id=4",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
 								"api",
 								"person",
-								"15"
+								"delete-profile"
 							],
 							"query": [
 								{
-									"key": "",
-									"value": "",
-									"disabled": true
+									"key": "id",
+									"value": "4"
 								}
 							]
 						}
@@ -147,131 +276,35 @@
 					"response": []
 				},
 				{
-					"name": "getRequests",
+					"name": "set-role",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{admin-token}}",
-								"type": "default"
+								"value": "{{general-client-token}}",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{root}}/api/person/requests/all",
+							"raw": "{{root}}/api/person/set-role?personId=2&roleId=1",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
 								"api",
 								"person",
-								"requests",
-								"all"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "acceptRequest",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{admin-token}}",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "{{root}}/api/person/accept-request/1",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"api",
-								"person",
-								"accept-request",
-								"1"
+								"set-role"
 							],
 							"query": [
 								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "auth",
-			"item": [
-				{
-					"name": "signup",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "displayname",
-									"value": "GeneralTest",
-									"type": "default"
+									"key": "personId",
+									"value": "2"
 								},
 								{
-									"key": "password",
-									"value": "general",
-									"type": "default"
-								},
-								{
-									"key": "phone",
-									"value": "54625597",
-									"type": "default"
+									"key": "roleId",
+									"value": "1"
 								}
-							]
-						},
-						"url": {
-							"raw": "{{root}}/api/auth/signup",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"signup"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "signin",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"phone\": \"54625597\",\n    \"password\": \"general\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{root}}/api/auth/signin",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"signin"
 							]
 						}
 					},
@@ -431,166 +464,6 @@
 		{
 			"name": "projects",
 			"item": [
-				{
-					"name": "get",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{admin-token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{root}}/apiappointment/2",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"apiappointment",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getAllByUserId",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{client-token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{root}}/api/appointment/client/1",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"api",
-								"appointment",
-								"client",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{admin-token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{root}}/api/appointment/4",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"api",
-								"appointment",
-								"4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "appointment-request",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{admin-token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{root}}/api/appointment/request/all",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"api",
-								"appointment",
-								"request",
-								"all"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "appointment-accepted",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{admin-token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{root}}/api/appointment/accepted/all",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"api",
-								"appointment",
-								"accepted",
-								"all"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "appointment-unconfirmed",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{admin-token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{root}}/api/appointment/unconfirmed/all",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"api",
-								"appointment",
-								"unconfirmed",
-								"all"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "create",
 					"request": {
