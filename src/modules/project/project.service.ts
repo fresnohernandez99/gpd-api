@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { Response } from "src/shared/responder";
 import { getConnection } from "typeorm";
 import { Person } from "../person/person.entity";
 import { CreateProjectDto } from "./dto/createProject.dto";
@@ -19,15 +20,15 @@ export class ProjectService {
 			where: { id: personId },
 		});
 
-		if (!existPerson) return null;
+		if (!existPerson) return new Response(3, ["Person not found"], {});
 
-		var toSave = new Project()
-		toSave.create(dto)
-		toSave.owner = existPerson
+		var toSave = new Project();
+		toSave.create(dto);
+		toSave.owner = existPerson;
 
-		const saving: Project = await this._repository.save(dto);
+		await this._repository.save(dto);
 
-		return saving;
+		return new Response(1, ["Project created"], {});
 	}
 
 	async update(id: number, updateObj: Project) {

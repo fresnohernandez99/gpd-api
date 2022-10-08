@@ -24,17 +24,6 @@ export class ProjectController {
 	@UsePipes(ValidationPipe)
 	async create(@Request() req, @Body() dto: CreateProjectDto) {
 		var creating = await this._service.create(req.user.id, dto);
-		if (!creating)
-			return {
-				code: 25,
-				message: "",
-				data: {},
-			};
-
-		return {
-			code: 1,
-			message: "",
-			data: { creating },
-		};
+		return creating;
 	}
 }

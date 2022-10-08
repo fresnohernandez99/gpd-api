@@ -32,11 +32,7 @@ export class AuthService {
 
 		await this._authRepository.signup(signupDto);
 
-		return {
-			code: 1,
-			message: "Process starting",
-			data: {},
-		};
+		return new Response(1, ["Process starting"], {});
 	}
 
 	async signin(signinDto: SigninDto) {
