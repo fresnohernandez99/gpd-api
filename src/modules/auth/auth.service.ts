@@ -42,6 +42,9 @@ export class AuthService {
 			where: { phone },
 		});
 
+		if (!person)
+		return new Response(4, ["User not found"], {});
+
 		if (person && person.state == StateType.WAITING)
 			return new Response(22, ["Waiting to be activated"], {});
 

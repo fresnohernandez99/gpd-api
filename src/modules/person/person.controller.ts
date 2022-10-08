@@ -24,6 +24,7 @@ import { PersonService } from "./person.service";
 import { storage } from "../auth/auth.controller";
 import { Response } from "src/shared/responder";
 import { UpdatePersonDto } from "./dto/updatePerson.dto";
+import { GetPersonIdDto } from "./dto/getPersonId.dto";
 
 @Controller("person")
 export class PersonController {
@@ -50,7 +51,9 @@ export class PersonController {
 
 		if (waiting.length == 0) return new Response(4, ["Missing data"], {});
 
-		return new Response(1, ["Waiting list"], { waiting });
+		let formatedPeople = waiting.map((item) => new GetPersonIdDto(item));
+
+		return new Response(1, ["Waiting list"], { formatedPeople });
 	}
 
 	@Get("/accept-request")
