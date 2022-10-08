@@ -19,7 +19,7 @@ export class ProjectController {
 	constructor(private readonly _service: ProjectService) {}
 
 	@Post()
-	@Roles(RoleType.GENERAL, RoleType.LEAD)
+	@Roles(RoleType.GENERAL, RoleType.LEAD, RoleType.ADMIN)
 	@UseGuards(AuthGuard(), RoleGuard)
 	@UsePipes(ValidationPipe)
 	async create(@Request() req, @Body() dto: CreateProjectDto) {

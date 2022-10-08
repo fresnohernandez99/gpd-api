@@ -10,11 +10,11 @@ export class CreateProjectDto {
 	area: string;
 
 	@IsNotEmpty()
-	@IsDate()
+	@IsString()
 	startDate: string;
 
 	@IsNotEmpty()
-	@IsDate()
+	@IsString()
 	endDate: string;
 
 	@IsNotEmpty()

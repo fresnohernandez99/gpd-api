@@ -20,13 +20,13 @@ export class ProjectService {
 			where: { id: personId },
 		});
 
-		if (!existPerson) return new Response(3, ["Person not found"], {});
+		if (!existPerson) return new Response(4, ["Person not found"], {});
 
 		var toSave = new Project();
 		toSave.create(dto);
 		toSave.owner = existPerson;
 
-		await this._repository.save(dto);
+		await this._repository.save(toSave);
 
 		return new Response(1, ["Project created"], {});
 	}
