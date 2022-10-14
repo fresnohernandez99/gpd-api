@@ -16,7 +16,7 @@ export class Project extends BaseEntity {
 	@PrimaryGeneratedColumn("increment")
 	id: number;
 
-	@Column({ type: "varchar", unique: true, nullable: false })
+	@Column({ type: "varchar", nullable: false })
 	projectName: string;
 
 	@Column({ type: "varchar", nullable: false })
@@ -42,5 +42,8 @@ export class Project extends BaseEntity {
 		this.area = dto.area
 		this.startDate = dto.startDate
 		this.endDate = dto.endDate
+
+		if (dto.logo != undefined) this.logo = dto.logo;
+		else dto.logo = "default.png";
 	}
 }

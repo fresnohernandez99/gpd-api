@@ -24,4 +24,6 @@ export class CreateProjectDto {
 	@IsNotEmpty()
 	@IsString()
 	recomendations: string;
+
+	logo: string;
 }

@@ -67,7 +67,7 @@ export class AuthService {
 		});
 
 		return new Response(1, ["Login success"], {
-			token,
+			token: `Bearer ${token}`,
 			phone: person.phone,
 			displayname: person.displayname,
 			isAdmin,

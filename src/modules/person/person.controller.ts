@@ -19,7 +19,6 @@ import { Roles } from "../role/decorators/role.decorator";
 import { RoleGuard } from "../role/guards/role.guard";
 import { RoleType } from "../role/roletype.enum";
 import { GetPersonDto } from "./dto/getPerson.dto";
-import { Person } from "./person.entity";
 import { PersonService } from "./person.service";
 import { storage } from "../auth/auth.controller";
 import { Response } from "src/shared/responder";
