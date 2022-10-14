@@ -4,6 +4,7 @@ import { Response } from "src/shared/responder";
 import { getConnection } from "typeorm";
 import { Person } from "../person/person.entity";
 import { CreateProjectDto } from "./dto/createProject.dto";
+import { UpdateProjectDto } from "./dto/updateProject.dto";
 import { Project } from "./project.entity";
 import { ProjectRepository } from "./project.repository";
 
@@ -31,7 +32,7 @@ export class ProjectService {
 		return new Response(1, ["Project created"], {});
 	}
 
-	async getAllMyPorjects(id: number) {
+	async getAllMyProjects(id: number) {
 		const personRepo = await getConnection().getRepository(Person);
 		const existPerson = await personRepo.findOne(id);
 
@@ -66,18 +67,24 @@ export class ProjectService {
 		return new Response(1, ["Deleted succesful"], {});
 	}
 
-	async update(id: number, updateObj: Project) {
-		const property = await this._repository.findOne({
-			where: { id },
+	async update(id: number, updateObj: UpdateProjectDto, userId: number) {
+		const property = await this._repository.findOne(id, {
+			relations: ["owner"],
 		});
 
+		if (!property) return new Response(4, ["Not found"], {});
+
+		if (userId != property.owner.id) throw new UnauthorizedException();
+
 		if (property) {
-			return await this._repository.save({
+			await this._repository.save({
 				...property, // existing fields
 				...updateObj, // updated fields
 			});
-		} else return null;
+			return new Response(1, ["Update succesful"], {});
+		} else return new Response(4, ["Not found"], {});;
 	}
+
 
 	async get(id: number) {
 		const obj: Project = await this._repository.findOne(id);

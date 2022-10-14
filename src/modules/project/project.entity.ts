@@ -25,6 +25,12 @@ export class Project extends BaseEntity {
 	@Column({ type: "varchar", nullable: true })
 	logo: string;
 
+	@Column({ type: "varchar", nullable: true })
+	justification: string;
+
+	@Column({ type: "varchar", nullable: true })
+	recomendations: string;
+
 	@ManyToOne(() => Person, (person) => person.projects)
 	owner: Person;
 

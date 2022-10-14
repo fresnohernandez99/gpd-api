@@ -504,6 +504,46 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{general-client-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"projectName\": \"Project name example 1 edited\",\n    \"area\": \"Solar\",\n    \"startDate\": \"2022-10-08T03:03:59.102Z\",\n    \"endDate\": \"2022-10-08T03:03:59.102Z\",\n    \"justification\": \"Just an example\",\n    \"recomendations\": \"Just a new commend\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/api/project/update?id=1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"project",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

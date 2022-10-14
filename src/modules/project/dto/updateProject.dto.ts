@@ -10,10 +10,6 @@ export class UpdateProjectDto {
 	area: string;
 
 	@IsNotEmpty()
-	@IsNumber()
-	owner;
-
-	@IsNotEmpty()
 	@IsDate()
 	startDate: string;
 

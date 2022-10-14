@@ -15,6 +15,7 @@ import { Roles } from "../role/decorators/role.decorator";
 import { RoleGuard } from "../role/guards/role.guard";
 import { RoleType } from "../role/roletype.enum";
 import { CreateProjectDto } from "./dto/createProject.dto";
+import { UpdateProjectDto } from "./dto/updateProject.dto";
 import { ProjectService } from "./project.service";
 
 @Controller("project")
@@ -34,7 +35,7 @@ export class ProjectController {
 	@Roles(RoleType.GENERAL, RoleType.LEAD, RoleType.ADMIN)
 	@UseGuards(AuthGuard(), RoleGuard)
 	async getMyProjects(@Request() req) {
-		var getting = await this._service.getAllMyPorjects(req.user.id);
+		var getting = await this._service.getAllMyProjects(req.user.id);
 		return getting;
 	}
 
@@ -46,5 +47,17 @@ export class ProjectController {
 
 		var deleting = await this._service.delete(params.id, isAdmin, req.user.id);
 		return deleting;
+	}
+
+	@Post("update")
+	@Roles(RoleType.GENERAL, RoleType.LEAD, RoleType.ADMIN)
+	@UseGuards(AuthGuard(), RoleGuard)
+	async update(
+		@Request() req,
+		@Query() params: { id: number },
+		@Body() dto: UpdateProjectDto
+	) {
+		var updating = await this._service.update(params.id, dto, req.user.id);
+		return updating;
 	}
 }
