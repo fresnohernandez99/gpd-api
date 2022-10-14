@@ -106,31 +106,6 @@
 					"response": []
 				},
 				{
-					"name": "get-by-id",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "{{root}}/api/person/1",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"api",
-								"person",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "getWaiting",
 					"request": {
 						"method": "GET",
@@ -449,13 +424,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{client-token}}",
+								"value": "{{general-client-token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"projectName\": \"Project name example\",\n    \"area\": \"Solar\",\n    \"startDate\": \"2022-10-08T03:03:59.102Z\",\n    \"endDate\": \"2022-10-08T03:03:59.102Z\",\n    \"justification\": \"Just an example\",\n    \"recomendations\": \"Just a new commend\"\n}",
+							"raw": "{\n    \"projectName\": \"Project name example 1\",\n    \"area\": \"Solar\",\n    \"startDate\": \"2022-10-08T03:03:59.102Z\",\n    \"endDate\": \"2022-10-08T03:03:59.102Z\",\n    \"justification\": \"Just an example\",\n    \"recomendations\": \"Just a new commend\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -470,6 +445,61 @@
 							"path": [
 								"api",
 								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMyProjects",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{general-client-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/project/my-projects",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"project",
+								"my-projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{general-client-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/project?id=3",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"project"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
 							]
 						}
 					},
