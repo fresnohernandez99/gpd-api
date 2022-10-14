@@ -11,6 +11,7 @@ import {
 	ValidationPipe,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
+import { Response } from "src/shared/responder";
 import { Roles } from "../role/decorators/role.decorator";
 import { RoleGuard } from "../role/guards/role.guard";
 import { RoleType } from "../role/roletype.enum";
@@ -40,7 +41,7 @@ export class ProjectController {
 	}
 
 	@Delete()
-	@Roles(RoleType.GENERAL, RoleType.LEAD, RoleType.ADMIN)
+	@Roles(RoleType.LEAD, RoleType.ADMIN)
 	@UseGuards(AuthGuard(), RoleGuard)
 	async delete(@Request() req, @Query() params: { id: number }) {
 		const isAdmin = req.user.roles[0] == RoleType.ADMIN;
@@ -59,5 +60,13 @@ export class ProjectController {
 	) {
 		var updating = await this._service.update(params.id, dto, req.user.id);
 		return updating;
+	}
+
+	@Get("all-projects")
+	@Roles(RoleType.ADMIN)
+	@UseGuards(AuthGuard(), RoleGuard)
+	async getAllProjects(@Request() req) {
+		var getting = await this._service.getAll();
+		return new Response(1, ["All Projects"], getting);
 	}
 }

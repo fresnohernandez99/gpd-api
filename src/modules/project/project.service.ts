@@ -85,17 +85,18 @@ export class ProjectService {
 		} else return new Response(4, ["Not found"], {});;
 	}
 
-
-	async get(id: number) {
-		const obj: Project = await this._repository.findOne(id);
-		return obj;
-	}
-
 	async getAll() {
 		const objs: Project[] = await this._repository.find();
 
 		return objs;
 	}
+
+	
+	async get(id: number) {
+		const obj: Project = await this._repository.findOne(id);
+		return obj;
+	}
+
 
 	async getAllByUserId(id: number) {
 		const personRepo = await getConnection().getRepository(Person);
