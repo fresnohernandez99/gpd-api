@@ -69,4 +69,12 @@ export class ProjectController {
 		var getting = await this._service.getAll();
 		return new Response(1, ["All Projects"], getting);
 	}
+
+	@Get("accept")
+	@Roles(RoleType.ADMIN)
+	@UseGuards(AuthGuard(), RoleGuard)
+	async accept(@Query() params: { id: number }) {
+		var accepting = await this._service.accept(params.id);
+		return accepting;
+	}
 }

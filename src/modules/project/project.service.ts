@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Response } from "src/shared/responder";
+import { StateType } from "src/shared/state.enum";
 import { getConnection } from "typeorm";
 import { Person } from "../person/person.entity";
 import { CreateProjectDto } from "./dto/createProject.dto";
@@ -42,7 +43,8 @@ export class ProjectService {
 			where: { owner: existPerson.id },
 		});
 
-		if (objs.length == 0) return new Response(4, ["You have cero projects"], objs);
+		if (objs.length == 0)
+			return new Response(4, ["You have cero projects"], objs);
 
 		return new Response(1, ["Your projects"], objs);
 	}
@@ -82,7 +84,7 @@ export class ProjectService {
 				...updateObj, // updated fields
 			});
 			return new Response(1, ["Update succesful"], {});
-		} else return new Response(4, ["Not found"], {});;
+		} else return new Response(4, ["Not found"], {});
 	}
 
 	async getAll() {
@@ -91,23 +93,21 @@ export class ProjectService {
 		return objs;
 	}
 
-	
-	async get(id: number) {
-		const obj: Project = await this._repository.findOne(id);
-		return obj;
-	}
-
-
-	async getAllByUserId(id: number) {
-		const personRepo = await getConnection().getRepository(Person);
-		const existPerson = await personRepo.findOne(id);
-
-		if (!existPerson) return null;
-
-		const objs: Project[] = await this._repository.find({
-			where: { owner: existPerson.id },
+	async accept(id: number) {
+		const property = await this._repository.findOne(id, {
+			relations: ["owner"],
 		});
 
-		return objs;
+		if (property && property.state != StateType.ACTIVE) {
+			var updateString = JSON.stringify(property);
+			var updateObj = JSON.parse(updateString);
+			updateObj.state = StateType.ACTIVE;
+
+			await this._repository.save({
+				...property, // existing fields
+				...updateObj, // updated fields
+			});
+			return new Response(1, ["State changed"], {});
+		} else return new Response(4, ["Not found"], {});
 	}
 }
