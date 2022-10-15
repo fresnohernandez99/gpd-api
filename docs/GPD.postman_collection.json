@@ -544,6 +544,62 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{client-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/project/all-projects",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"project",
+								"all-projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "accept",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{client-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/project/accept?id=1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"project",
+								"accept"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
