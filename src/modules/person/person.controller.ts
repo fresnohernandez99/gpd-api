@@ -3,9 +3,6 @@ import {
 	Controller,
 	Delete,
 	Get,
-	Param,
-	ParseIntPipe,
-	Patch,
 	Post,
 	Query,
 	Request,
@@ -18,12 +15,12 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { Roles } from "../role/decorators/role.decorator";
 import { RoleGuard } from "../role/guards/role.guard";
 import { RoleType } from "../role/roletype.enum";
-import { GetPersonDto } from "./dto/getPerson.dto";
 import { PersonService } from "./person.service";
 import { storage } from "../auth/auth.controller";
 import { Response } from "src/shared/responder";
 import { UpdatePersonDto } from "./dto/updatePerson.dto";
 import { GetPersonIdDto } from "./dto/getPersonId.dto";
+import { FormatedPersonDto } from "./dto/formatedPerson.dto";
 
 @Controller("person")
 export class PersonController {
@@ -37,7 +34,7 @@ export class PersonController {
 
 		if (people.length == 0) return new Response(4, ["Missing data"], {});
 
-		let formatedPeople = people.map((item) => new GetPersonDto(item));
+		let formatedPeople = people.map((item) => new FormatedPersonDto(item));
 
 		return new Response(1, ["People list"], { formatedPeople });
 	}
