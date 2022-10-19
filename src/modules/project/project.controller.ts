@@ -73,8 +73,8 @@ export class ProjectController {
 	@Get("accept")
 	@Roles(RoleType.ADMIN)
 	@UseGuards(AuthGuard(), RoleGuard)
-	async accept(@Query() params: { id: number }) {
-		var accepting = await this._service.accept(params.id);
+	async accept(@Request() req, @Query() params: { id: number }) {
+		var accepting = await this._service.accept(params.id, req.user.id);
 		return accepting;
 	}
 }

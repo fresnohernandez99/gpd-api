@@ -93,7 +93,7 @@ export class ProjectService {
 		return objs;
 	}
 
-	async accept(id: number) {
+	async accept(id: number, userId: number) {
 		const property = await this._repository.findOne(id, {
 			relations: ["owner"],
 		});
@@ -107,6 +107,10 @@ export class ProjectService {
 				...property, // existing fields
 				...updateObj, // updated fields
 			});
+
+			if (userId != 1)
+				await getConnection().query(`UPDATE person_roles SET "roleId" = 2 WHERE "personId" = ${userId};`);
+
 			return new Response(1, ["State changed"], {});
 		} else return new Response(4, ["Not found"], {});
 	}
