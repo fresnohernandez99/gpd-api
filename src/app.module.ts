@@ -10,6 +10,7 @@ import { Configuration } from "./config/config.keys";
 import { PersonModule } from "./modules/person/person.module";
 import { ImagesModule } from './modules/images/images.module';
 import { ProjectModule } from './modules/project/project.module';
+import { EventModule } from "./modules/event/event.module";
 
 @Module({
 	controllers: [AppController],
@@ -22,6 +23,7 @@ import { ProjectModule } from './modules/project/project.module';
 		AuthModule,
 		ImagesModule,
 		ProjectModule,
+		EventModule,
 	],
 })
 export class AppModule {

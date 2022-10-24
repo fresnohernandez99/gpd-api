@@ -6,8 +6,10 @@ import {
 	CreateDateColumn,
 	UpdateDateColumn,
 	ManyToOne,
+	OneToMany,
 } from "typeorm";
 import { StateType } from "../../shared/state.enum";
+import { Event } from "../event/event.entity";
 import { Person } from "../person/person.entity";
 import { CreateProjectDto } from "./dto/createProject.dto";
 
@@ -42,6 +44,9 @@ export class Project extends BaseEntity {
 
 	@UpdateDateColumn({ type: "timestamp", name: "end_date" })
 	endDate: string;
+
+	@OneToMany(() => Event, event => event.project)
+    events: Event[];
 
 	create(dto: CreateProjectDto) {
 		this.projectName = dto.projectName

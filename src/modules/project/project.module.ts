@@ -6,7 +6,7 @@ import { ProjectRepository } from "./project.repository";
 import { ProjectService } from "./project.service";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ProjectRepository]), AuthModule],
+	imports: [TypeOrmModule.forFeature([ProjectRepository]), AuthModule],
 	controllers: [ProjectController],
 	providers: [ProjectService],
 })
