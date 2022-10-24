@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Response } from "src/shared/responder";
 import { getConnection } from "typeorm";
@@ -36,6 +36,52 @@ export class EventService {
 
 		await this._repository.save(toSave);
 
-		return new Response(1, ["Project created"], {});
+		return new Response(1, ["Event created"], {});
+	}
+
+	async getEventsByProject(projectId: number) {
+		const objs: Event[] = await this._repository.find({
+			where: { project: projectId },
+		});
+
+		if (objs.length == 0) return new Response(4, ["Events not found"], objs);
+
+		return new Response(1, ["Events:"], objs);
+	}
+
+	async delete(
+		personId: number,
+		projectId: number,
+		eventId: number,
+		isAdmin: boolean
+	) {
+		const personRepo = await getConnection().getRepository(Person);
+		const existPerson = await personRepo.findOne({
+			where: { id: personId },
+		});
+
+		if (!existPerson) return new Response(4, ["Person not found"], {});
+
+		const projectRepo = await getConnection().getRepository(Project);
+		const existProject = await projectRepo.findOne({
+			where: { id: projectId },
+		});
+
+		if (existProject) {
+			if (isAdmin) {
+				await this._repository.delete(eventId);
+
+				return new Response(1, ["Deleted succesful"], {});
+			} else {
+				if (personId != existProject.owner.id)
+					throw new UnauthorizedException();
+
+				await this._repository.delete(eventId);
+
+				return new Response(1, ["Deleted succesful"], {});
+			}
+		}
+
+        return new Response(4, ["Project not found"], {});
 	}
 }
