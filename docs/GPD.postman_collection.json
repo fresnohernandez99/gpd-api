@@ -638,6 +638,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getEventsByProject",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{client-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/event/my-events?projectId=1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"event",
+								"my-events"
+							],
+							"query": [
+								{
+									"key": "projectId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
