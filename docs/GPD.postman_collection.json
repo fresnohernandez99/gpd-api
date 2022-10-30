@@ -19,17 +19,17 @@
 							"formdata": [
 								{
 									"key": "displayname",
-									"value": "Fabian2",
+									"value": "admin",
 									"type": "default"
 								},
 								{
 									"key": "password",
-									"value": "fabian",
+									"value": "admin",
 									"type": "default"
 								},
 								{
 									"key": "phone",
-									"value": "54896387",
+									"value": "00000000",
 									"type": "default"
 								}
 							]
@@ -430,7 +430,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"projectName\": \"Project name example 1\",\n    \"area\": \"Solar\",\n    \"startDate\": \"2022-10-08T03:03:59.102Z\",\n    \"endDate\": \"2022-10-08T03:03:59.102Z\",\n    \"justification\": \"Just an example\",\n    \"recomendations\": \"Just a new commend\"\n}",
+							"raw": "{\n    \"projectName\": \"ping Project aaanaaame example 1\",\n    \"area\": \"Solar\",\n    \"startDate\": \"2022-10-08T03:03:59.102Z\",\n    \"endDate\": \"2022-10-08T03:03:59.102Z\",\n    \"justification\": \"Just an example\",\n    \"recomendations\": \"Just a new commend\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -596,6 +596,44 @@
 									"key": "id",
 									"value": "1"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "event",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{client-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventName\": \"Ejemplo evento\",\n    \"description\": \"Ejemplo de descripcion texto largo de menos de 300chars mas o menos q se yo\",\n    \"startDate\": \"2022-10-08T03:03:59.102Z\",\n    \"endDate\": \"2022-10-08T03:03:59.102Z\",\n    \"projectId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/api/event",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"event"
 							]
 						}
 					},
