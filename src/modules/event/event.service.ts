@@ -92,7 +92,7 @@ export class EventService {
 		if (existProject) {
 			if (personId != existProject.owner.id) throw new UnauthorizedException();
 
-			await this._repository.delete(eventId);
+			await this._repository.delete({id: eventId});
 
 			return new Response(1, ["Deleted succesful"], {});
 		}

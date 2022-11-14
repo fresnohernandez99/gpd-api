@@ -33,7 +33,7 @@ export class Person extends BaseEntity {
 	@Column({ type: "varchar", nullable: true, default: StateType.WAITING })
 	state: string;
 
-	@ManyToMany((type) => Role, (role) => role.people, { eager: true })
+	@ManyToMany((type) => Role, (role) => role.people, { eager: true, cascade: true })
 	@JoinTable({ name: "person_roles" })
 	roles: Role[];
 

@@ -21,7 +21,7 @@ export class Event extends BaseEntity {
 	@Column({ type: "varchar", nullable: true })
 	description: string;
 
-	@ManyToOne(() => Project, (project) => project.events)
+	@ManyToOne(() => Project, (project) => project.events, { cascade: true })
 	project: Project;
 
 	@CreateDateColumn({ type: "timestamp", name: "start_date", nullable: false })

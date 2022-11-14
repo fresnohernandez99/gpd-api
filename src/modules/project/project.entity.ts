@@ -33,7 +33,7 @@ export class Project extends BaseEntity {
 	@Column({ type: "varchar", nullable: true })
 	recomendations: string;
 
-	@ManyToOne(() => Person, (person) => person.projects)
+	@ManyToOne(() => Person, (person) => person.projects, { cascade: true })
 	owner: Person;
 
 	@Column({ type: "varchar", nullable: true, default: StateType.WAITING })
@@ -51,6 +51,8 @@ export class Project extends BaseEntity {
 	create(dto: CreateProjectDto) {
 		this.projectName = dto.projectName
 		this.area = dto.area
+		this.justification = dto.justification
+		this.recomendations = dto.recomendations
 		this.startDate = dto.startDate
 		this.endDate = dto.endDate
 
