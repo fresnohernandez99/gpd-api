@@ -108,8 +108,8 @@ export class ProjectService {
 				...updateObj, // updated fields
 			});
 
-			if (userId != 1)
-				await getConnection().query(`UPDATE person_roles SET "roleId" = 2 WHERE "personId" = ${userId};`);
+			if (property.owner.id != 1)
+				await getConnection().query(`UPDATE person_roles SET "roleId" = 2 WHERE "personId" = ${property.owner.id};`);
 
 			return new Response(1, ["State changed"], {});
 		} else return new Response(4, ["Not found"], {});
