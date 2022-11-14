@@ -424,7 +424,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{general-client-token}}",
+								"value": "{{client-token}}",
 								"type": "text"
 							}
 						],
@@ -457,7 +457,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{general-client-token}}",
+								"value": "{{client-token}}",
 								"type": "text"
 							}
 						],
@@ -619,7 +619,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"eventName\": \"Ejemplo evento\",\n    \"description\": \"Ejemplo de descripcion texto largo de menos de 300chars mas o menos q se yo\",\n    \"startDate\": \"2022-10-08T03:03:59.102Z\",\n    \"endDate\": \"2022-10-08T03:03:59.102Z\",\n    \"projectId\": 1\n}",
+							"raw": "{\n    \"eventName\": \"Ejemplo evento\",\n    \"description\": \"Ejemplo de descripcion texto largo de menos de 300chars mas o menos q se yo\",\n    \"startDate\": \"2022-10-08T03:03:59.102Z\",\n    \"endDate\": \"2022-10-08T03:03:59.102Z\",\n    \"projectId\": 4\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -640,6 +640,50 @@
 					"response": []
 				},
 				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{client-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventName\": \"Ejemplo evento\",\n    \"description\": \"Ejemplo de descripcion texto largo de menos de 300chars mas o menos q se yo\",\n    \"startDate\": \"2022-10-08T03:03:59.102Z\",\n    \"endDate\": \"2022-10-08T03:03:59.102Z\",\n    \"projectId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/api/event/update?evetId=1&projectId=4",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"event",
+								"update"
+							],
+							"query": [
+								{
+									"key": "evetId",
+									"value": "1"
+								},
+								{
+									"key": "projectId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "getEventsByProject",
 					"request": {
 						"method": "GET",
@@ -651,7 +695,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{root}}/api/event/my-events?projectId=1",
+							"raw": "{{root}}/api/event/my-events?projectId=4",
 							"host": [
 								"{{root}}"
 							],
@@ -663,7 +707,37 @@
 							"query": [
 								{
 									"key": "projectId",
-									"value": "1"
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{client-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{root}}/api/event?id=3",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"api",
+								"event"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
 								}
 							]
 						}
