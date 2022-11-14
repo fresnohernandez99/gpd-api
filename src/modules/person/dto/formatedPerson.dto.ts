@@ -4,6 +4,9 @@ import { Person } from "../person.entity";
 
 export class FormatedPersonDto {
 	@IsNotEmpty()
+	id: Number;
+
+	@IsNotEmpty()
 	displayname: string;
 
 	@IsNotEmpty()
@@ -18,6 +21,8 @@ export class FormatedPersonDto {
 	state: string;
 
 	constructor(person: Person){
+		this.id = person.id
+		
 		this.displayname = person.displayname;
 
 		this.phone = person.phone;
