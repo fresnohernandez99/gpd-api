@@ -65,6 +65,14 @@ export class EventService {
 		return new Response(1, ["Events:"], objs);
 	}
 
+	async getAllEvents() {
+		const objs: Event[] = await this._repository.find();
+
+		if (objs.length == 0) return new Response(4, ["Events not found"], objs);
+
+		return new Response(1, ["Events:"], objs);
+	}
+
 	async delete(
 		personId: number,
 		projectId: number,

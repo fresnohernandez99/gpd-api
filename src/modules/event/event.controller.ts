@@ -79,4 +79,13 @@ export class EventController {
         );
 		return updating;
 	}
+
+	@Get("all-events")
+	@Roles(RoleType.LEAD, RoleType.ADMIN)
+	@UseGuards(AuthGuard(), RoleGuard)
+	async getAllEvents() {
+		var getting = await this._service.getAllEvents();
+		
+		return getting;
+	}
 }
