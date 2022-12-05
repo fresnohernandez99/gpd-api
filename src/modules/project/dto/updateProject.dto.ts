@@ -1,4 +1,4 @@
-import { IsDate, IsInt, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class UpdateProjectDto {
 	@IsNotEmpty()
@@ -10,11 +10,11 @@ export class UpdateProjectDto {
 	area: string;
 
 	@IsNotEmpty()
-	@IsDate()
+	@IsString()
 	startDate: string;
 
 	@IsNotEmpty()
-	@IsDate()
+	@IsString()
 	endDate: string;
 
 	@IsNotEmpty()
