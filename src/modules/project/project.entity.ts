@@ -33,7 +33,7 @@ export class Project extends BaseEntity {
 	@Column({ type: "varchar", nullable: true })
 	recomendations: string;
 
-	@ManyToOne(() => Person, (person) => person.projects, { cascade: true })
+	@ManyToOne(() => Person, (person) => person.projects, { onDelete: "CASCADE" })
 	owner: Person;
 
 	@Column({ type: "varchar", nullable: true, default: StateType.WAITING })
@@ -45,16 +45,16 @@ export class Project extends BaseEntity {
 	@UpdateDateColumn({ type: "timestamp", name: "end_date" })
 	endDate: string;
 
-	@OneToMany(() => Event, event => event.project)
-    events: Event[];
+	@OneToMany(() => Event, (event) => event.project)
+	events: Event[];
 
 	create(dto: CreateProjectDto) {
-		this.projectName = dto.projectName
-		this.area = dto.area
-		this.justification = dto.justification
-		this.recomendations = dto.recomendations
-		this.startDate = dto.startDate
-		this.endDate = dto.endDate
+		this.projectName = dto.projectName;
+		this.area = dto.area;
+		this.justification = dto.justification;
+		this.recomendations = dto.recomendations;
+		this.startDate = dto.startDate;
+		this.endDate = dto.endDate;
 
 		if (dto.logo != undefined) this.logo = dto.logo;
 		else dto.logo = "default.png";

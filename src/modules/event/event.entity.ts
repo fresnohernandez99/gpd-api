@@ -21,7 +21,9 @@ export class Event extends BaseEntity {
 	@Column({ type: "varchar", nullable: true })
 	description: string;
 
-	@ManyToOne(() => Project, (project) => project.events, { cascade: true })
+	@ManyToOne(() => Project, (project) => project.events, {
+		onDelete: "CASCADE",
+	})
 	project: Project;
 
 	@CreateDateColumn({ type: "timestamp", name: "start_date", nullable: false })
@@ -31,9 +33,9 @@ export class Event extends BaseEntity {
 	endDate: string;
 
 	create(dto: CreateEventDto) {
-		this.eventName = dto.eventName
-		this.description = dto.description
-		this.startDate = dto.startDate
-		this.endDate = dto.endDate
+		this.eventName = dto.eventName;
+		this.description = dto.description;
+		this.startDate = dto.startDate;
+		this.endDate = dto.endDate;
 	}
 }

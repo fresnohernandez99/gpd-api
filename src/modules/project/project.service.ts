@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Response } from "src/shared/responder";
 import { StateType } from "src/shared/state.enum";
 import { getConnection } from "typeorm";
+import { Event } from "../event/event.entity";
 import { Person } from "../person/person.entity";
 import { CreateProjectDto } from "./dto/createProject.dto";
 import { UpdateProjectDto } from "./dto/updateProject.dto";
@@ -109,7 +110,9 @@ export class ProjectService {
 			});
 
 			if (property.owner.id != 1)
-				await getConnection().query(`UPDATE person_roles SET "roleId" = 2 WHERE "personId" = ${property.owner.id};`);
+				await getConnection().query(
+					`UPDATE person_roles SET "roleId" = 2 WHERE "personId" = ${property.owner.id};`
+				);
 
 			return new Response(1, ["State changed"], {});
 		} else return new Response(4, ["Not found"], {});
