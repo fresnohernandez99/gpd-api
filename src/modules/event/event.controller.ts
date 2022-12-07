@@ -11,6 +11,8 @@ import {
 	Delete,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
+import { getConnection } from "typeorm";
+import { Project } from "../project/project.entity";
 import { Roles } from "../role/decorators/role.decorator";
 import { RoleGuard } from "../role/guards/role.guard";
 import { RoleType } from "../role/roletype.enum";

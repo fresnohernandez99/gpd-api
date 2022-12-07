@@ -86,20 +86,17 @@ export class EventService {
 		}
 
 		const personRepo = await getConnection().getRepository(Person);
-		const existPerson = await personRepo.findOne({
-			where: { id: personId },
-		});
+		const existPerson = await personRepo.findOne(personId);
 
 		if (!existPerson) return new Response(4, ["Person not found"], {});
-
+		
 		const projectRepo = await getConnection().getRepository(Project);
-		const existProject = await projectRepo.findOne({
-			where: { id: projectId },
+		const existProject = await projectRepo.findOne(projectId, {
+			relations: ["owner"],
 		});
-
+		
 		if (existProject) {
 			if (personId != existProject.owner.id) throw new UnauthorizedException();
-
 			await this._repository.delete(eventId);
 
 			return new Response(1, ["Deleted succesful"], {});
