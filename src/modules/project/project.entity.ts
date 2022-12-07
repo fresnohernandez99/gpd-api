@@ -39,10 +39,10 @@ export class Project extends BaseEntity {
 	@Column({ type: "varchar", nullable: true, default: StateType.WAITING })
 	state: string;
 
-	@CreateDateColumn({ type: "timestamp", name: "start_date" })
+	@Column({ type: "timestamp", name: "start_date" })
 	startDate: string;
 
-	@UpdateDateColumn({ type: "timestamp", name: "end_date" })
+	@Column({ type: "timestamp", name: "end_date" })
 	endDate: string;
 
 	@OneToMany(() => Event, (event) => event.project)

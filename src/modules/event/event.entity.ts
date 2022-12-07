@@ -26,10 +26,10 @@ export class Event extends BaseEntity {
 	})
 	project: Project;
 
-	@CreateDateColumn({ type: "timestamp", name: "start_date", nullable: false })
+	@Column({ type: "timestamp", name: "start_date", nullable: false })
 	startDate: string;
 
-	@UpdateDateColumn({ type: "timestamp", name: "end_date", nullable: false })
+	@Column({ type: "timestamp", name: "end_date", nullable: false })
 	endDate: string;
 
 	create(dto: CreateEventDto) {
