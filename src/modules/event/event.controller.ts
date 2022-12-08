@@ -83,7 +83,7 @@ export class EventController {
 	}
 
 	@Get("all-events")
-	@Roles(RoleType.LEAD, RoleType.ADMIN)
+	@Roles(RoleType.GENERAL, RoleType.LEAD, RoleType.ADMIN)
 	@UseGuards(AuthGuard(), RoleGuard)
 	async getAllEvents() {
 		var getting = await this._service.getAllEvents();
